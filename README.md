@@ -1,23 +1,34 @@
-# KampungSG Static Website
+# KampungSG React Website
 
-Multipage static website generated from crawled KampungSG page content.
+React/Vite showcase generated from crawled KampungSG page content.
 
-## Pages
+## Routes
 
-- `index.html`
-- `listings.html`
-- `explore-singapore.html`
-- `articles.html`
-- `community.html`
-- `partners.html`
-- `help.html`
-- `faq.html`
-- `auth.html`
+- `#/home`
+- `#/listings`
+- `#/explore`
+- `#/articles`
+- `#/community`
+- `#/partners`
+- `#/help`
+- `#/faq`
+- `#/auth`
 
 ## Local Preview
 
-Open `index.html` directly in a browser, or serve the folder with any static web server.
+```bash
+npm install
+npm run dev
+```
+
+## Production Build
+
+```bash
+npm run build
+```
+
+The production build outputs to `docs/` so GitHub Pages can host it from the repository.
 
 ## GitHub Pages
 
-This site is ready to host from the repository root using GitHub Pages.
+This site is configured for GitHub Pages with Vite base path `/kampungsg-web/`.

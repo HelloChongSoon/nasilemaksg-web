@@ -1,7 +1,7 @@
 ---
 version: alpha
 name: KampungSG Route Rebuild
-description: Multipage Singapore property management and market intelligence site generated from crawled KampungSG pages.
+description: React/Vite Singapore property management and market intelligence showcase generated from crawled KampungSG pages.
 colors:
   ink: "#17201c"
   muted: "#5f6b66"
@@ -57,12 +57,12 @@ This file follows the spirit of the public `design.md` workflow: make product de
 
 ## Product Shape
 
-KampungSG is a Singapore property management and market intelligence product. The rebuilt site should behave like the crawled source site, with distinct pages for listings, explore, articles, community, partners, help, FAQ, and auth.
+KampungSG is a Singapore property management and market intelligence product. The rebuilt site behaves like the crawled source site, with React hash routes for listings, explore, articles, community, partners, help, FAQ, and auth.
 
 ## Visual Direction
 
 - Product mood: calm, operational, trustworthy, local.
-- Layout: route-specific pages with shared navigation and footer.
+- Layout: React route-specific views with shared navigation and footer.
 - Density: homepage can be editorial, but internal pages should be scannable and work-focused.
 - Radius: keep cards and controls at 8px.
 - Color: neutral base with balanced green, blue, coral, and yellow accents. Avoid a one-hue theme.
@@ -81,12 +81,16 @@ KampungSG is a Singapore property management and market intelligence product. Th
 
 ## Routes
 
-- `/index.html` homepage and product overview.
-- `/listings.html` property search shell with crawled empty state.
-- `/explore-singapore.html` activity directory.
-- `/articles.html` market insight listing.
-- `/community.html` forum shell.
-- `/partners.html` service partner directory.
-- `/help.html` support center and guides.
-- `/faq.html` FAQ categories.
-- `/auth.html` sign-in/sign-up page.
+- `#/home` homepage and product overview.
+- `#/listings` property search shell with crawled empty state.
+- `#/explore` activity directory.
+- `#/articles` market insight listing.
+- `#/community` forum shell.
+- `#/partners` service partner directory.
+- `#/help` support center and guides.
+- `#/faq` FAQ categories.
+- `#/auth` sign-in/sign-up page.
+
+## Build Output
+
+The Vite production build emits to `docs/` so GitHub Pages can host the React app from the repository.
