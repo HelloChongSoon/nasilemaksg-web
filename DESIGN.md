@@ -1,7 +1,7 @@
 ---
 version: alpha
-name: KampungSG Route Rebuild
-description: React/Vite Singapore property management and market intelligence showcase generated from crawled KampungSG pages.
+name: NasiLemakSG Route Rebuild
+description: React/Vite Singapore property management and market intelligence showcase for NasiLemakSG.
 colors:
   ink: "#17201c"
   muted: "#5f6b66"
@@ -51,13 +51,13 @@ components:
     padding: 20px
 ---
 
-# KampungSG Design Brief
+# NasiLemakSG Design Brief
 
 This file follows the spirit of the public `design.md` workflow: make product decisions visible, name reusable patterns, and keep the interface consistent across pages.
 
 ## Product Shape
 
-KampungSG is a Singapore property management and market intelligence product. The rebuilt site behaves like the crawled source site, with React hash routes for listings, explore, articles, community, partners, help, FAQ, and auth.
+NasiLemakSG is a Singapore property management and market intelligence product. The rebuilt site behaves like a full React product showcase, with hash routes for listings, explore, articles, community, partners, help, FAQ, and auth.
 
 ## Visual Direction
 
@@ -67,7 +67,7 @@ KampungSG is a Singapore property management and market intelligence product. Th
 - Radius: keep cards and controls at 8px.
 - Color: neutral base with balanced green, blue, coral, and yellow accents. Avoid a one-hue theme.
 - Typography: readable sans for UI, expressive serif only for large brand moments.
-- Assets: use crawled KampungSG assets and Singapore imagery where it helps identify real content.
+- Assets: use NasiLemakSG social preview imagery and Singapore imagery where it helps identify real content.
 
 ## Core Components
 

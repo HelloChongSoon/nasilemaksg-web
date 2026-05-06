@@ -1,6 +1,6 @@
-# KampungSG React Website
+# NasiLemakSG React Website
 
-React/Vite showcase generated from crawled KampungSG page content.
+React/Vite showcase for NasiLemakSG property market intelligence.
 
 ## Routes
 
@@ -31,4 +31,4 @@ The production build outputs to `dist/`.
 
 ## GitHub Pages
 
-This site is configured for GitHub Pages with a GitHub Actions workflow and Vite base path `/kampungsg-web/`.
+This site is configured for GitHub Pages with a GitHub Actions workflow and Vite base path `/nasilemaksg-web/`.

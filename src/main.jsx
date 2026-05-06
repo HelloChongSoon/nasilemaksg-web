@@ -9,12 +9,10 @@ import {
   CircleDollarSign,
   ClipboardList,
   FileText,
-  Grid3X3,
   HelpCircle,
   Home,
   KeyRound,
   LifeBuoy,
-  LoaderCircle,
   LogIn,
   Map,
   Menu,
@@ -23,14 +21,12 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
-  TrendingUp,
   Users,
   Wrench,
   X,
 } from "lucide-react";
+import { MarketDataModule } from "./MarketDataModule.jsx";
 import "./styles.css";
-
-const houseIcon = "https://www.kampungsg.com/assets/kampung-house-icon-DYyTplxy.png";
 
 const pages = [
   { id: "home", label: "Home", icon: Home },
@@ -57,39 +53,6 @@ const featureCards = [
   { icon: ShieldCheck, label: "Secure Payments", title: "Payment visibility", copy: "Payment processing and reminders are presented as part of the lease workflow." },
 ];
 
-const stats = [
-  { value: "284", label: "Current rental index" },
-  { value: "1.1%", label: "Month-on-month" },
-  { value: "32", label: "Tracked time periods" },
-  { value: "URA, HDB, 99.co", label: "Source families" },
-];
-
-const rentBands = [
-  { label: "$5,000+", color: "#dc2626" },
-  { label: "$4,000-5,000", color: "#ea580c" },
-  { label: "$3,500-4,000", color: "#f59e0b" },
-  { label: "$3,000-3,500", color: "#eab308" },
-  { label: "$2,700-3,000", color: "#84cc16" },
-  { label: "Below $2,700", color: "#22c55e" },
-];
-
-const heatmapDistricts = [
-  { name: "Marina Bay", rent: "$5,450", change: "+1.8%", band: 0, className: "zone-marina" },
-  { name: "Orchard", rent: "$4,820", change: "+0.9%", band: 1, className: "zone-orchard" },
-  { name: "Tanjong Pagar", rent: "$4,280", change: "+1.2%", band: 1, className: "zone-tanjong" },
-  { name: "Queenstown", rent: "$3,760", change: "+0.5%", band: 2, className: "zone-queenstown" },
-  { name: "Punggol", rent: "$3,180", change: "+0.2%", band: 3, className: "zone-punggol" },
-  { name: "Jurong West", rent: "$2,640", change: "-0.4%", band: 5, className: "zone-jurong" },
-];
-
-const dataSources = [
-  ["URA", "Urban Redevelopment Authority", "Singapore's national urban planning authority"],
-  ["HDB", "Housing & Development Board", "Singapore's public housing authority"],
-  ["EdgeProp", "EdgeProp Singapore", "Property portal and market insights"],
-  ["Straits Times", "The Straits Times", "Singapore's leading news source"],
-  ["99.co", "99.co Singapore", "Property search and rental platform"],
-];
-
 const activities = [
   { image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&auto=format&fit=crop&q=80", title: "Gardens by the Bay", area: "Marina Bay", rating: "4.8", type: "Nature", duration: "3-4 hours", copy: "Supertree Grove, Cloud Forest, and Flower Dome conservatories." },
   { image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=900&auto=format&fit=crop&q=80", title: "Marina Bay Sands SkyPark", area: "Marina Bay", rating: "4.6", type: "Landmarks", duration: "1-2 hours", copy: "Observation deck with panoramic city and waterfront views." },
@@ -102,7 +65,7 @@ const activities = [
 ];
 
 const articles = [
-  { tag: "Market Trends", minutes: "8 min read", title: "Singapore Rental Market Outlook 2024: Key Trends & Predictions", copy: "Comprehensive analysis of rental trends, price movements, and market forecasts for Singapore's property sector.", author: "KampungSG Research Team" },
+  { tag: "Market Trends", minutes: "8 min read", title: "Singapore Rental Market Outlook 2024: Key Trends & Predictions", copy: "Comprehensive analysis of rental trends, price movements, and market forecasts for Singapore's property sector.", author: "NasiLemakSG Research Team" },
   { tag: "URA Data", minutes: "6 min read", title: "Private Residential Rental Index: Q4 2023 Analysis", copy: "Deep dive into URA rental index data showing regional variations and property type performance.", author: "Market Analyst" },
   { tag: "Rental Yield", minutes: "12 min read", title: "Landlord's Complete Guide to Rental Yield Optimization", copy: "Strategic approaches to maximize rental returns, reduce vacancy periods, and enhance property value.", author: "David Wong" },
 ];
@@ -181,9 +144,9 @@ function Header({ route, menuOpen, onMenu }) {
   return (
     <header className="site-header">
       <div className="nav-inner">
-        <a className="brand" href="#/home" aria-label="KampungSG home">
-          <img src={houseIcon} alt="" />
-          <span><strong>KampungSG</strong><small>Lease Management</small></span>
+        <a className="brand" href="#/home" aria-label="NasiLemakSG home">
+          <span className="brand-mark" aria-hidden="true">N</span>
+          <span><strong>NasiLemakSG</strong><small>Lease Management</small></span>
         </a>
         <nav className={menuOpen ? "nav-links is-open" : "nav-links"} aria-label="Primary">
           {pages.map(({ id, label, icon: Icon }) => (
@@ -205,8 +168,8 @@ function HomePage() {
     <>
       <section className="hero product-hero">
         <div className="hero-content">
-          <p className="kicker">Your Property Kampung</p>
-          <h1>KampungSG</h1>
+          <p className="kicker">Your Property Kopitiam</p>
+          <h1>NasiLemakSG</h1>
           <p>Singapore's proptech lease management platform powered by AI, real-time property data, and workflows for agents, landlords, and tenants.</p>
           <div className="hero-actions">
             <a className="button" href="#/auth"><Sparkles size={16} />Get Started Free</a>
@@ -214,10 +177,10 @@ function HomePage() {
           </div>
         </div>
       </section>
-      <Section kicker="Platform Features" title="Enterprise-grade proptech solutions built for Singapore leasing operations." copy="Data-driven pages, reusable React views, and interface patterns pulled from the crawled KampungSG structure.">
+      <Section kicker="Platform Features" title="Enterprise-grade proptech solutions built for Singapore leasing operations." copy="Data-driven pages, reusable React views, and interface patterns pulled from the NasiLemakSG structure.">
         <div className="feature-grid">{featureCards.map((card) => <FeatureCard key={card.label} {...card} />)}</div>
       </Section>
-      <RentalHeatmap />
+      <MarketDataModule />
       <Section kicker="For Real Estate Professionals" title="Plans for agents growing from a few listings to a larger portfolio.">
         <div className="pricing-grid">
           <Plan title="Starter" price="Free" items={["Up to 6 active listings", "Client CRM", "Document uploads", "Mobile app access"]} />
@@ -226,121 +189,6 @@ function HomePage() {
         </div>
       </Section>
     </>
-  );
-}
-
-function RentalHeatmap() {
-  const [view, setView] = React.useState("map");
-
-  return (
-    <>
-      <section className="rental-heatmap-section">
-        <div className="section-inner">
-          <div className="heatmap-heading">
-            <span className="source-badge">Live Market Data</span>
-            <h2>Singapore Rental Heatmap</h2>
-            <p>Explore average rental prices across Singapore districts. Hover over any area to see detailed information.</p>
-            <small>Data as of: December 2025</small>
-            <div className="view-switch" role="group" aria-label="Rental heatmap view">
-              <button className={view === "map" ? "active" : ""} type="button" onClick={() => setView("map")}><Map size={16} />Map View</button>
-              <button className={view === "grid" ? "active" : ""} type="button" onClick={() => setView("grid")}><Grid3X3 size={16} />Grid View</button>
-            </div>
-          </div>
-
-          <div className="heatmap-summary">
-            <MetricTile title="Highest Avg Rent" value={view === "map" ? "$5,450" : "$5,450"} tone="danger" detail="Marina Bay" />
-            <MetricTile title="Lowest Avg Rent" value="$2,640" tone="success" detail="Jurong West" />
-            <MetricTile title="Avg YoY Change" value="+0.0%" tone="success" detail="Across all districts" icon={<TrendingUp size={16} />} />
-          </div>
-
-          {view === "map" ? <HeatmapMap /> : <HeatmapGrid />}
-        </div>
-      </section>
-
-      <section className="trusted-source-strip">
-        <div className="section-inner">
-          <div className="heatmap-heading compact-heading">
-            <h3>Trusted Data Sources</h3>
-            <p>Real-time property data from Singapore's most trusted sources</p>
-          </div>
-          <div className="source-marquee" aria-label="Trusted data sources">
-            <div className="fade-edge left" />
-            <div className="fade-edge right" />
-            <div className="source-track">
-              {[...dataSources, ...dataSources].map(([name, title, copy], index) => (
-                <article className="source-card" key={`${name}-${index}`}>
-                  <div>
-                    <strong>{name}</strong>
-                    <span>{title}</span>
-                  </div>
-                  <p>{copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-          <p className="source-footnote">Powered by official government data and leading property platforms</p>
-        </div>
-      </section>
-      <p className="refresh-note">Data last refreshed: 6 May 2026, 03:26 pm</p>
-    </>
-  );
-}
-
-function MetricTile({ title, value, detail, tone, icon }) {
-  return (
-    <article className="metric-tile">
-      <span>{title}</span>
-      <strong className={tone}>{icon}{value}</strong>
-      <small>{detail}</small>
-    </article>
-  );
-}
-
-function HeatmapMap() {
-  return (
-    <div className="heatmap-frame">
-      <div className="map-loading"><LoaderCircle size={32} /><span>Loading map...</span></div>
-      <div className="singapore-map" aria-label="Singapore rental heatmap">
-        {heatmapDistricts.map((district) => (
-          <button
-            className={`heat-zone ${district.className}`}
-            key={district.name}
-            style={{ backgroundColor: rentBands[district.band].color }}
-            type="button"
-            aria-label={`${district.name} average rent ${district.rent}`}
-          >
-            <strong>{district.name}</strong>
-            <span>{district.rent}</span>
-            <small>{district.change}</small>
-          </button>
-        ))}
-      </div>
-      <div className="rent-legend">
-        <strong>Avg Monthly Rent</strong>
-        {rentBands.map((band) => (
-          <span key={band.label}><i style={{ backgroundColor: band.color }} />{band.label}</span>
-        ))}
-      </div>
-      <div className="map-credit">Mapbox | URA Data</div>
-    </div>
-  );
-}
-
-function HeatmapGrid() {
-  return (
-    <div className="heatmap-grid-view">
-      {heatmapDistricts.map((district) => (
-        <article className="district-row" key={district.name}>
-          <span style={{ backgroundColor: rentBands[district.band].color }} />
-          <div>
-            <strong>{district.name}</strong>
-            <small>{rentBands[district.band].label}</small>
-          </div>
-          <b>{district.rent}</b>
-          <em>{district.change}</em>
-        </article>
-      ))}
-    </div>
   );
 }
 
@@ -403,7 +251,7 @@ function PartnersPage() {
 
 function HelpPage() {
   return (
-    <Page title="Help & Support Center" kicker="Support" copy="Quick actions, guides, and compliance notes from the crawled KampungSG help center.">
+    <Page title="Help & Support Center" kicker="Support" copy="Quick actions, guides, and compliance notes from the NasiLemakSG help center.">
       <div className="content-grid">{guides.map(([title, copy]) => <FeatureCard key={title} icon={ClipboardList} label="Guide" title={title} copy={copy} />)}</div>
       <Section kicker="PDPA Compliance" title="Privacy and security notes from the support crawl." compact>
         <div className="content-grid three">
@@ -429,7 +277,7 @@ function AuthPage() {
     <div className="auth-page">
       <section className="auth-art">
         <p className="kicker">Welcome Back</p>
-        <h1>KampungSG</h1>
+        <h1>NasiLemakSG</h1>
         <p>Sign in to your Singapore property lease management workspace.</p>
       </section>
       <section className="auth-card">
@@ -492,7 +340,7 @@ function EmptyState({ title, copy, action, onAction }) {
 }
 
 function Footer() {
-  return <footer className="site-footer"><div><h2>KampungSG Lease Management</h2><p>Singapore's premier property management and market intelligence platform.</p></div><nav><a href="#/listings">Browse Listings</a><a href="#/articles">Market Insights</a><a href="#/explore">Explore Singapore</a><a href="#/help">Help Center</a><a href="#/faq">FAQ</a><a href="#/partners">Partners</a></nav><a className="button secondary" href="#/auth">Launch Workspace <ArrowRight size={16} /></a></footer>;
+  return <footer className="site-footer"><div><h2>NasiLemakSG Lease Management</h2><p>Singapore's premier property management and market intelligence platform.</p></div><nav><a href="#/listings">Browse Listings</a><a href="#/articles">Market Insights</a><a href="#/explore">Explore Singapore</a><a href="#/help">Help Center</a><a href="#/faq">FAQ</a><a href="#/partners">Partners</a></nav><a className="button secondary" href="#/auth">Launch Workspace <ArrowRight size={16} /></a></footer>;
 }
 
 createRoot(document.getElementById("root")).render(<App />);
