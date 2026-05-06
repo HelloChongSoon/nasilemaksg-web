@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Property Listings - Singapore Real Estate Search | KampungSG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@650;750&family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="site-header">
+        <div class="nav-inner">
+          <a class="brand" href="./index.html"><img src="https://www.kampungsg.com/assets/kampung-house-icon-DYyTplxy.png" alt="KampungSG" /><span class="brand-text"><span>KampungSG</span><span>Lease Management</span></span></a>
+          <nav class="nav-links" aria-label="Primary"><a href="./index.html">Home</a><a class="is-active" href="./listings.html">Listings</a><a href="./explore-singapore.html">Explore</a><a href="./articles.html">Articles</a><a href="./community.html">Community</a><a href="./partners.html">Partners</a><a href="./help.html">Help</a></nav>
+          <div class="nav-actions"><a class="secondary-link" href="./auth.html">Log in</a><a class="button" href="./auth.html">Get Started</a><button class="mobile-menu" type="button" data-menu>Menu</button></div>
+        </div>
+      </header>
+      <main>
+        <section class="hero compact" style="--hero-image: url('https://www.kampungsg.com/assets/condo-illustration-Dls8XHvn.png')">
+          <div class="hero-inner">
+            <p class="kicker">Property Listings</p>
+            <h1>Search Singapore rentals across live property sources.</h1>
+            <p class="lead">The crawled page references PropertyGuru, 99.co, and EdgeProp with a refreshable live data search.</p>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-inner">
+            <div class="toolbar">
+              <input class="input" type="search" placeholder="Search by town, district, condo, or address" />
+              <select class="select"><option>All property types</option><option>HDB</option><option>Condo</option><option>Landed</option></select>
+              <select class="select"><option>Any budget</option><option>Below $2,700</option><option>$3,000-$3,500</option><option>$5,000+</option></select>
+              <button class="button blue" type="button">Refresh Live Data</button>
+            </div>
+            <div class="grid four">
+              <article class="stat"><strong>0</strong><span>Listings found</span></article>
+              <article class="stat"><strong>773ms</strong><span>Crawled response time</span></article>
+              <article class="stat"><strong>3</strong><span>Source portals</span></article>
+              <article class="stat"><strong>Live</strong><span>Search and filters</span></article>
+            </div>
+            <div class="empty" style="margin-top: 18px">
+              <div>
+                <h2>No listings found</h2>
+                <p>Try adjusting your search criteria or filters.</p>
+                <div class="hero-actions" style="justify-content: center"><button class="button secondary" type="button">Clear filters</button></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
