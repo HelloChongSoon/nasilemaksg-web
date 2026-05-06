@@ -27,8 +27,8 @@ npm run dev
 npm run build
 ```
 
-The production build outputs to `docs/` so GitHub Pages can host it from the repository.
+The production build outputs to `dist/`.
 
 ## GitHub Pages
 
-This site is configured for GitHub Pages with Vite base path `/kampungsg-web/`.
+This site is configured for GitHub Pages with a GitHub Actions workflow and Vite base path `/kampungsg-web/`.

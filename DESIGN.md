@@ -93,4 +93,4 @@ KampungSG is a Singapore property management and market intelligence product. Th
 
 ## Build Output
 
-The Vite production build emits to `docs/` so GitHub Pages can host the React app from the repository.
+The Vite production build emits to `dist/`. GitHub Pages deploys that artifact through `.github/workflows/deploy.yml`.
