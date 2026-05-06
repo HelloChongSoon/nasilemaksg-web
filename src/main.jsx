@@ -1,5 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { LazyMotion, domAnimation, m } from "framer-motion";
 import {
   ArrowRight,
   BarChart3,
@@ -7,6 +8,7 @@ import {
   Check,
   ChevronRight,
   CircleDollarSign,
+  Clock3,
   ClipboardList,
   FileText,
   HelpCircle,
@@ -17,10 +19,14 @@ import {
   Map,
   Menu,
   MessageSquare,
+  Moon,
   Paintbrush,
+  Quote,
   Search,
   ShieldCheck,
   Sparkles,
+  Star,
+  Sun,
   Users,
   Wrench,
   X,
@@ -92,6 +98,45 @@ const faqs = [
   ["Technical", "Is there a mobile app available?", "Can I integrate with other software?", "What browsers are supported?"],
 ];
 
+const heroStats = [
+  ["284", "Current rental index"],
+  ["1.1%", "Month-on-month"],
+  ["32", "Tracked time periods"],
+];
+
+const testimonials = [
+  {
+    name: "Maya Tan",
+    role: "Principal Agent, District 9",
+    quote: "The market dashboard gives my landlords confidence before we even discuss pricing. It feels like bringing a research team into every listing call.",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=180&auto=format&fit=crop&q=80",
+  },
+  {
+    name: "Jon Lim",
+    role: "Portfolio Landlord",
+    quote: "Lease tracking, rent signals, and service partners are finally in one place. The workflow is calm, fast, and very Singapore-specific.",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=180&auto=format&fit=crop&q=80",
+  },
+  {
+    name: "Aisha Rahman",
+    role: "Relocation Consultant",
+    quote: "The rental heatmap is the first tool I show expat clients. It explains neighborhoods, budgets, and tradeoffs without a thirty-slide deck.",
+    avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=180&auto=format&fit=crop&q=80",
+  },
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.72, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.11 } },
+};
+
+const viewport = { once: true, amount: 0.18 };
+
 const routeFromHash = () => window.location.hash.replace("#/", "") || "home";
 
 function App() {
@@ -99,6 +144,7 @@ function App() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
   const [activityFilter, setActivityFilter] = React.useState("All");
+  const [darkMode, setDarkMode] = React.useState(false);
 
   React.useEffect(() => {
     const onHashChange = () => {
@@ -113,22 +159,30 @@ function App() {
   const page = route === "auth" || route === "faq" ? route : pages.some((item) => item.id === route) ? route : "home";
 
   return (
-    <div className="app-shell">
-      <Announcement />
-      <Header route={page} menuOpen={menuOpen} onMenu={() => setMenuOpen((value) => !value)} />
-      <main>
-        {page === "home" && <HomePage />}
-        {page === "listings" && <ListingsPage query={query} setQuery={setQuery} />}
-        {page === "explore" && <ExplorePage filter={activityFilter} setFilter={setActivityFilter} />}
-        {page === "articles" && <ArticlesPage />}
-        {page === "community" && <CommunityPage />}
-        {page === "partners" && <PartnersPage />}
-        {page === "help" && <HelpPage />}
-        {page === "faq" && <FaqPage />}
-        {page === "auth" && <AuthPage />}
-      </main>
-      {page !== "auth" && <Footer />}
-    </div>
+    <LazyMotion features={domAnimation}>
+      <div className={darkMode ? "app-shell theme-dark" : "app-shell"}>
+        <Announcement />
+        <Header
+          darkMode={darkMode}
+          menuOpen={menuOpen}
+          onMenu={() => setMenuOpen((value) => !value)}
+          onToggleDarkMode={() => setDarkMode((value) => !value)}
+          route={page}
+        />
+        <main>
+          {page === "home" && <HomePage />}
+          {page === "listings" && <ListingsPage query={query} setQuery={setQuery} />}
+          {page === "explore" && <ExplorePage filter={activityFilter} setFilter={setActivityFilter} />}
+          {page === "articles" && <ArticlesPage />}
+          {page === "community" && <CommunityPage />}
+          {page === "partners" && <PartnersPage />}
+          {page === "help" && <HelpPage />}
+          {page === "faq" && <FaqPage />}
+          {page === "auth" && <AuthPage />}
+        </main>
+        {page !== "auth" && <Footer />}
+      </div>
+    </LazyMotion>
   );
 }
 
@@ -140,7 +194,7 @@ function Announcement() {
   );
 }
 
-function Header({ route, menuOpen, onMenu }) {
+function Header({ route, menuOpen, onMenu, darkMode, onToggleDarkMode }) {
   return (
     <header className="site-header">
       <div className="nav-inner">
@@ -154,6 +208,15 @@ function Header({ route, menuOpen, onMenu }) {
           ))}
         </nav>
         <div className="nav-actions">
+          <button
+            className="theme-toggle"
+            type="button"
+            onClick={onToggleDarkMode}
+            aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+            aria-pressed={darkMode}
+          >
+            <span>{darkMode ? <Moon size={15} /> : <Sun size={15} />}</span>
+          </button>
           <a className="text-link" href="#/auth"><LogIn size={16} />Log in</a>
           <a className="button" href="#/auth"><KeyRound size={16} />Get Started</a>
           <button className="icon-button" type="button" onClick={onMenu} aria-label="Toggle menu">{menuOpen ? <X /> : <Menu />}</button>
@@ -167,18 +230,61 @@ function HomePage() {
   return (
     <>
       <section className="hero product-hero">
+        <div className="hero-grain" aria-hidden="true" />
+        <div className="hero-blob blob-one" aria-hidden="true" />
+        <div className="hero-blob blob-two" aria-hidden="true" />
         <div className="hero-content">
-          <p className="kicker">Your Property Kopitiam</p>
-          <h1>NasiLemakSG</h1>
-          <p>Singapore's proptech lease management platform powered by AI, real-time property data, and workflows for agents, landlords, and tenants.</p>
-          <div className="hero-actions">
-            <a className="button" href="#/auth"><Sparkles size={16} />Get Started Free</a>
-            <a className="button secondary" href="#/listings"><Search size={16} />Browse Properties</a>
-          </div>
+          <m.div className="hero-copy" variants={stagger} initial="hidden" animate="visible">
+            <m.p className="kicker hero-pill" variants={fadeUp}><Sparkles size={14} />Your Property Kopitiam</m.p>
+            <m.h1 variants={fadeUp}><span>NasiLemakSG</span></m.h1>
+            <m.p variants={fadeUp}>Singapore's proptech lease management platform powered by AI, real-time property data, and workflows for agents, landlords, and tenants.</m.p>
+            <m.div className="hero-actions" variants={fadeUp}>
+              <a className="button hero-primary" href="#/auth"><Sparkles size={18} />Get Started Free</a>
+              <a className="button secondary hero-secondary" href="#/listings"><Search size={18} />Browse Properties</a>
+            </m.div>
+            <m.div className="hero-stat-row" variants={stagger} aria-label="NasiLemakSG market highlights">
+              {heroStats.map(([value, label]) => (
+                <m.article variants={fadeUp} key={label}>
+                  <strong>{value}</strong>
+                  <span>{label}</span>
+                </m.article>
+              ))}
+            </m.div>
+          </m.div>
+          <m.div className="hero-mockups" initial={{ opacity: 0, y: 34, rotateX: 8 }} animate={{ opacity: 1, y: 0, rotateX: 0 }} transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }} aria-label="Product dashboard preview">
+            <div className="macbook-frame">
+              <div className="mockup-toolbar"><span /><span /><span /></div>
+              <div className="mockup-screen">
+                <div className="mockup-chart">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <div className="mockup-grid">
+                  <b>Rental Heatmap</b>
+                  <strong>$5,760</strong>
+                  <small>D6 - City Hall</small>
+                </div>
+                <div className="mockup-list">
+                  <span>Lease health</span>
+                  <i />
+                  <i />
+                  <i />
+                </div>
+              </div>
+            </div>
+            <div className="iphone-frame">
+              <div className="phone-notch" />
+              <strong>321</strong>
+              <span>Current Index</span>
+              <div className="phone-bars"><i /><i /><i /></div>
+            </div>
+          </m.div>
         </div>
       </section>
       <Section kicker="Platform Features" title="Enterprise-grade proptech solutions built for Singapore leasing operations." copy="Data-driven pages, reusable React views, and interface patterns pulled from the NasiLemakSG structure.">
-        <div className="feature-grid">{featureCards.map((card) => <FeatureCard key={card.label} {...card} />)}</div>
+        <m.div className="feature-grid" variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>{featureCards.map((card) => <FeatureCard key={card.label} {...card} />)}</m.div>
       </Section>
       <MarketDataModule />
       <Section kicker="For Real Estate Professionals" title="Plans for agents growing from a few listings to a larger portfolio.">
@@ -188,6 +294,8 @@ function HomePage() {
           <Plan title="Professional" price="S$147.06/year" items={["Up to 50 active listings", "Full CRM suite", "Analytics", "API access"]} />
         </div>
       </Section>
+      <Testimonials />
+      <FinalCta />
     </>
   );
 }
@@ -307,7 +415,7 @@ function Section({ kicker, title, copy, children, alt = false, compact = false }
 }
 
 function FeatureCard({ icon: Icon, label, title, copy }) {
-  return <article className="card"><div className="card-icon"><Icon size={20} /></div><span className="label">{label}</span><h3>{title}</h3><p>{copy}</p></article>;
+  return <m.article className="card feature-card" variants={fadeUp} whileHover={{ y: -8, scale: 1.015 }} transition={{ type: "spring", stiffness: 260, damping: 20 }}><div className="card-icon"><Icon size={20} /></div><span className="label">{label}</span><h3>{title}</h3><p>{copy}</p></m.article>;
 }
 
 function StatCard({ value, label }) {
@@ -315,7 +423,19 @@ function StatCard({ value, label }) {
 }
 
 function Plan({ title, price, items, featured }) {
-  return <article className={featured ? "card plan featured" : "card plan"}>{featured && <span className="label hot">Most Popular</span>}<h3>{title}</h3><strong>{price}</strong>{items.map((item) => <p key={item}><Check size={15} />{item}</p>)}</article>;
+  return (
+    <m.article
+      className={featured ? "card plan featured" : "card plan"}
+      whileHover={{ y: -10, rotateX: 4, rotateY: featured ? -4 : 3, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 220, damping: 18 }}
+    >
+      {featured && <span className="confetti" aria-hidden="true" />}
+      {featured && <span className="label hot">Most Popular</span>}
+      <h3>{title}</h3>
+      <strong>{price}</strong>
+      {items.map((item) => <p key={item}><Check size={15} />{item}</p>)}
+    </m.article>
+  );
 }
 
 function SegmentedControl({ options, value, onChange }) {
@@ -323,7 +443,7 @@ function SegmentedControl({ options, value, onChange }) {
 }
 
 function ActivityCard({ activity }) {
-  return <article className="media-card"><img src={activity.image} alt={activity.title} /><div><span className="label">{activity.type}</span><h3>{activity.title}</h3><p>{activity.copy}</p><div className="tag-row"><span>{activity.area}</span><span>{activity.rating} rating</span><span>{activity.duration}</span></div></div></article>;
+  return <article className="media-card"><img src={activity.image} alt={activity.title} loading="lazy" /><div><span className="label">{activity.type}</span><h3>{activity.title}</h3><p>{activity.copy}</p><div className="tag-row"><span>{activity.area}</span><span>{activity.rating} rating</span><span>{activity.duration}</span></div></div></article>;
 }
 
 function ArticleCard({ article }) {
@@ -337,6 +457,93 @@ function PartnerGroup({ group }) {
 
 function EmptyState({ title, copy, action, onAction }) {
   return <div className="empty-state"><h2>{title}</h2><p>{copy}</p>{action && <button className="button secondary" type="button" onClick={onAction}>{action}</button>}</div>;
+}
+
+function Testimonials() {
+  const [active, setActive] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActive((value) => (value + 1) % testimonials.length);
+    }, 4200);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const testimonial = testimonials[active];
+
+  return (
+    <section className="section testimonial-section" aria-label="Customer testimonials">
+      <div className="section-inner">
+        <m.div className="section-head" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
+          <div>
+            <p className="kicker">Loved by Singapore property teams</p>
+            <h2>Operators use NasiLemakSG when the spreadsheet era starts feeling expensive.</h2>
+          </div>
+          <p>Real-looking customer stories, familiar workflows, and just enough social proof to make the page feel alive without shouting.</p>
+        </m.div>
+        <m.div className="testimonial-carousel" initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={viewport} transition={{ duration: 0.72 }}>
+          <Quote size={36} aria-hidden="true" />
+          <p>{testimonial.quote}</p>
+          <div className="testimonial-person">
+            <img src={testimonial.avatar} alt="" loading="lazy" />
+            <div>
+              <strong>{testimonial.name}</strong>
+              <span>{testimonial.role}</span>
+            </div>
+          </div>
+          <div className="testimonial-stars" aria-label="5 out of 5 stars">
+            {Array.from({ length: 5 }, (_, index) => <Star key={index} size={16} fill="currentColor" />)}
+          </div>
+          <div className="carousel-dots" aria-label="Select testimonial">
+            {testimonials.map((item, index) => (
+              <button
+                aria-label={`Show testimonial from ${item.name}`}
+                className={active === index ? "active" : ""}
+                key={item.name}
+                onClick={() => setActive(index)}
+                type="button"
+              />
+            ))}
+          </div>
+        </m.div>
+      </div>
+    </section>
+  );
+}
+
+function FinalCta() {
+  const [secondsLeft, setSecondsLeft] = React.useState(18 * 60 + 24);
+
+  React.useEffect(() => {
+    const timer = window.setInterval(() => {
+      setSecondsLeft((value) => (value > 0 ? value - 1 : 18 * 60 + 24));
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const minutes = String(Math.floor(secondsLeft / 60)).padStart(2, "0");
+  const seconds = String(secondsLeft % 60).padStart(2, "0");
+
+  return (
+    <section className="final-cta">
+      <div className="section-inner">
+        <m.div className="final-cta-card" variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
+          <m.p className="kicker" variants={fadeUp}><Clock3 size={14} />Limited onboarding slots</m.p>
+          <m.h2 variants={fadeUp}>Launch your Singapore property workspace before the next rental cycle.</m.h2>
+          <m.p variants={fadeUp}>Keep the same product content, routes, and market data, now wrapped in a landing page that finally feels like it belongs in 2025.</m.p>
+          <m.div className="countdown" variants={fadeUp} aria-label={`Limited spots timer ${minutes} minutes and ${seconds} seconds remaining`}>
+            <span>{minutes}</span>
+            <small>:</small>
+            <span>{seconds}</span>
+          </m.div>
+          <m.div className="hero-actions" variants={fadeUp}>
+            <a className="button hero-primary" href="#/auth"><KeyRound size={18} />Get Started</a>
+            <a className="button secondary hero-secondary" href="#/help">Talk to Support</a>
+          </m.div>
+        </m.div>
+      </div>
+    </section>
+  );
 }
 
 function Footer() {
